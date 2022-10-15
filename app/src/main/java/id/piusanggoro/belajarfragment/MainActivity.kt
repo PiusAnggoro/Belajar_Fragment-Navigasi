@@ -11,7 +11,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
-    //private lateinit var navController: NavController
     private lateinit var drawerlayout: DrawerLayout
     private lateinit var navView: NavigationView
 
@@ -19,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         drawerlayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
         val navController: NavController = this.findNavController(R.id.nav_host_fragment)

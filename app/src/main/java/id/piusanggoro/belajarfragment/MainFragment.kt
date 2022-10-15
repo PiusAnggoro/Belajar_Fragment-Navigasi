@@ -2,14 +2,16 @@ package id.piusanggoro.belajarfragment
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import id.piusanggoro.belajarfragment.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
+    private var _fragmentMainBinding: FragmentMainBinding? = null
+    private val fragmentMainBinding get() = _fragmentMainBinding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -18,18 +20,18 @@ class MainFragment : Fragment() {
     ): View {
         (activity as AppCompatActivity).supportActionBar?.title = "Dompet DigitalKU"
 
-        val root: View = inflater.inflate(R.layout.fragment_main, container, false)
-        root.findViewById<Button>(R.id.btnLihatTransaksi).setOnClickListener {
-            it.findNavController()
-                .navigate(MainFragmentDirections.actionMainFragmentToViewTransactionFragment2())
+        _fragmentMainBinding = FragmentMainBinding.inflate(inflater, container, false)
+        val view = fragmentMainBinding.root
+
+        fragmentMainBinding.btnLihatTransaksi.setOnClickListener{
+            view.findNavController().navigate(MainFragmentDirections.actionMainFragmentToViewTransactionFragment2())
         }
-        root.findViewById<Button>(R.id.btnCekSaldo).setOnClickListener {
-            it.findNavController()
-                .navigate(MainFragmentDirections.actionMainFragmentToViewBalanceFragment())
+        fragmentMainBinding.btnCekSaldo.setOnClickListener{
+            view.findNavController().navigate(MainFragmentDirections.actionMainFragmentToViewBalanceFragment())
         }
 
         setHasOptionsMenu(true);
-        return root;
+        return view
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -40,5 +42,10 @@ class MainFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.onNavDestinationSelected(item, findNavController())
                 || return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroyView() {
+        _fragmentMainBinding = null
+        super.onDestroyView()
     }
 }
